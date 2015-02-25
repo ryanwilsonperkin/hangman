@@ -10,7 +10,7 @@
        INTEGER Q, M, I, J, W, T1, R, L 
        REAL RND 
 
-       CHARACTER*20 DICT(50)
+       CHARACTER (LEN=20), DIMENSION(50) :: DICT
 
        DATA DICT/'gum','sin','for','cry','lug','bye','fly','ugly', 
      M           'each','from','work','talk','with','self',
