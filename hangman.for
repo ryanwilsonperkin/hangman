@@ -1,201 +1,201 @@
-!      GAME OF HANGMAN BY DAVE AHL, DIGITAL
-!      BASED ON A BASIC PROGRAM WRITTEN BY KEN AUPPERLE
-!            HALF HALLOW HILLS H.S. DIX HILLS NY
-!      CONVERTED TO FORTRAN 77 BY M.WIRTH, APRIL 2012
+!      game of hangman by dave ahl, digital
+!      based on a basic program written by ken aupperle
+!            half hallow hills h.s. dix hills ny
+!      converted to fortran 77 by m.wirth, april 2012
 !       
-       PROGRAM HANGMAN 
-       IMPLICIT NONE
-       CHARACTER P(12,12)
-       CHARACTER GUESSES(26)
-       CHARACTER DASHES(20), A*20, GUESS, B*20, ANS 
-       INTEGER USED(50)
-       INTEGER LENGTH
-       INTEGER COUNTER
-       INTEGER FLAG
-       INTEGER Q, MISTAKES, I, J, T1, R
+       program hangman 
+       implicit none
+       character p(12,12)
+       character guesses(26)
+       character dashes(20), a*20, guess, b*20, ans 
+       integer used(50)
+       integer length
+       integer counter
+       integer flag
+       integer q, mistakes, i, j, t1, r
 
-       CHARACTER (LEN=20), DIMENSION(50) :: DICT
+       character (len=20), dimension(50) :: dict
 
-       DATA DICT/'gum','sin','for','cry','lug','bye','fly','ugly', 
-     M           'each','from','work','talk','with','self',
-     M           'pizza','thing','feign','fiend','elbow','fault',
-     M           'dirty','budget','spirit','quaint','maiden',
-     M           'escort','pickax','example','tension','quinine',
-     M           'kidney','replica','sleeper','triangle',
-     M           'kangaroo','mahogany','sergeant','sequence',
-     M           'moustache','dangerous','scientist','different',
-     M           'quiescent','magistrate','erroneously',
-     M           'loudspeaker','phytotoxic','matrimonial',
-     M           'parasympathomimetic','thigmotropism'/
-       WRITE (*,*) "THE GAME OF HANGMAN"
+       data dict/'gum','sin','for','cry','lug','bye','fly','ugly', 
+     m           'each','from','work','talk','with','self',
+     m           'pizza','thing','feign','fiend','elbow','fault',
+     m           'dirty','budget','spirit','quaint','maiden',
+     m           'escort','pickax','example','tension','quinine',
+     m           'kidney','replica','sleeper','triangle',
+     m           'kangaroo','mahogany','sergeant','sequence',
+     m           'moustache','dangerous','scientist','different',
+     m           'quiescent','magistrate','erroneously',
+     m           'loudspeaker','phytotoxic','matrimonial',
+     m           'parasympathomimetic','thigmotropism'/
+       write (*,*) "the game of hangman"
 
-! Initialize counter
-       COUNTER = 1
-! Initialize "used" words tracker
-       USED = 0
+! initialize counter
+       counter = 1
+! initialize "used" words tracker
+       used = 0
 
-       DO COUNTER=1,50
-! Assign ascii gallows 
-           P = " "
-           DO I = 1,12
-               P(I,1) = "X"
-           END DO
-           DO J = 1,7
-               P(1,J) = "X"
-           END DO
-           P(2,7) = "X"
+       do counter=1,50
+! assign ascii gallows 
+           p = " "
+           do i = 1,12
+               p(i,1) = "x"
+           end do
+           do j = 1,7
+               p(1,j) = "x"
+           end do
+           p(2,7) = "x"
 
-! Initialize other values
-           DASHES = "-"
-           GUESSES = " "
-           MISTAKES = 0 
-           T1=0
-           FLAG = 0
+! initialize other values
+           dashes = "-"
+           guesses = " "
+           mistakes = 0 
+           t1=0
+           flag = 0
 
-! Get random remaining word from dictionary
-           DO WHILE (USED(Q) .EQ. 1)
-               Q=CEILING(RAND()*50)
-           END DO
-           USED(Q) = 1
-           A = DICT(Q)
-           LENGTH = LEN_TRIM(A) 
+! get random remaining word from dictionary
+           do while (used(q) .eq. 1)
+               q=ceiling(rand()*50)
+           end do
+           used(q) = 1
+           a = dict(q)
+           length = len_trim(a) 
            
-! Write number of dashes for current word
-           WRITE (*,*) DASHES(1:LENGTH)
+! write number of dashes for current word
+           write (*,*) dashes(1:length)
 
-           DO WHILE (MISTAKES .LT. 10)
+           do while (mistakes .lt. 10)
 
-! Write current guesses
-               WRITE (*,*) "Here are the letters you used: "
-               DO I = 1,26
-                   IF (GUESSES(I) .EQ. ' ') EXIT
-                   WRITE (*,'(AA$)') GUESSES(I),","
-               END DO
+! write current guesses
+               write (*,*) "here are the letters you used: "
+               do i = 1,26
+                   if (guesses(i) .eq. ' ') exit
+                   write (*,'(aa$)') guesses(i),","
+               end do
 
-! Prompt for next guess
-               WRITE (*,*) " "
-               WRITE (*,*) "What is your guess? "
-               READ (*,*) GUESS 
+! prompt for next guess
+               write (*,*) " "
+               write (*,*) "what is your guess? "
+               read (*,*) guess 
 
-! Check if guess is a repeat
-               DO I = 1,26
-                   IF (ICHAR(GUESSES(I)) .EQ. ICHAR(GUESS)) FLAG = 1
-               END DO
-               IF (FLAG .EQ. 1) THEN
-                   WRITE (*,*) "You guessed that letter before"
-                   CYCLE
-               END IF
+! check if guess is a repeat
+               do i = 1,26
+                   if (ichar(guesses(i)) .eq. ichar(guess)) flag = 1
+               end do
+               if (flag .eq. 1) then
+                   write (*,*) "you guessed that letter before"
+                   cycle
+               end if
 
-! Add current guess to list
-               T1=T1+1
-               GUESSES(T1)=GUESS
-               R=0
-               DO I = 1,LENGTH
-                   IF (A(I:I) .EQ. GUESS) THEN
-                       DASHES(I) = GUESS
-                       R=R+1
-                   END IF
-               END DO
+! add current guess to list
+               t1=t1+1
+               guesses(t1)=guess
+               r=0
+               do i = 1,length
+                   if (a(i:i) .eq. guess) then
+                       dashes(i) = guess
+                       r=r+1
+                   end if
+               end do
 
-               IF (R .NE. 0) THEN
-                   FLAG = 0
-                   DO I = 1,LENGTH
-                       IF (ICHAR(DASHES(I)) .EQ. ICHAR("-")) FLAG = 1
-                   END DO
-                   IF (FLAG .EQ. 1) THEN
-                       WRITE (*,*) DASHES(1:LENGTH)
-                       WRITE (*,*) "What is your guess for the word? "
-                       READ (*,*) B
-                       IF (A .EQ. B) THEN
-                           EXIT
-                       ELSE
-                           WRITE (*,*) "Wrong. Try another letter"
-                           CYCLE
-                       END IF
-                   ELSE
-                       WRITE (*,*) "You found the word."
-                       EXIT
-                   END IF
-               END IF
+               if (r .ne. 0) then
+                   flag = 0
+                   do i = 1,length
+                       if (ichar(dashes(i)) .eq. ichar("-")) flag = 1
+                   end do
+                   if (flag .eq. 1) then
+                       write (*,*) dashes(1:length)
+                       write (*,*) "what is your guess for the word? "
+                       read (*,*) b
+                       if (a .eq. b) then
+                           exit
+                       else
+                           write (*,*) "wrong. try another letter"
+                           cycle
+                       end if
+                   else
+                       write (*,*) "you found the word."
+                       exit
+                   end if
+               end if
 
-               MISTAKES = MISTAKES+1
-               WRITE (*,*) "Sorry, that letter isn't in the word."
-               SELECT CASE (MISTAKES)
-                   CASE (1)
-                       WRITE (*,*) "First we draw a head."
-                       P(3,6) = "-"
-                       P(3,7) = "-"
-                       P(3,8) = "-"
-                       P(4,5) = "(" 
-                       P(4,6) = "."
-                       P(4,8) = "."
-                       P(4,9) = ")"
-                       P(5,6) = "-"
-                       P(5,7) = "-" 
-                       P(5,8) = "-"
-                   CASE (2)
-                       WRITE (*,*) "Now we draw a body."
-                       DO I = 6,9
-                           P(I,7) = "X" 
-                       END DO
-                   CASE (3)
-                       WRITE (*,*) "Next we draw an arm."
-                       DO I = 4,7
-                           P(I,I-1) = "\" 
-                       END DO
-                   CASE (4)
-                       WRITE (*,*) "This time it's the other arm."
-                       P(4,11) = "/"
-                       P(5,10) = "/"
-                       P(6,9) = "/"
-                       P(7,8) = "/" 
-                   CASE (5)
-                       WRITE (*,*) "Now, let's draw the right leg."
-                       P(10,6) = "/"
-                       P(11,5) = "/"
-                   CASE (6)
-                       WRITE (*,*) "This time we draw the left leg."
-                       P(10,8) = "\"
-                       P(11,9) = "\"
-                   CASE (7)
-                       WRITE (*,*) "Now we put up a hand."
-                       P(3,11) = "\"
-                   CASE (8)
-                       WRITE (*,*) "Next the other hand."
-                       P(3,3) = "/"
-                   CASE (9)
-                       WRITE (*,*) "Now we draw one foot."
-                       P(12,10) = "\"
-                       P(12,11) = "-"
-                   CASE (10)
-                       WRITE (*,*) "Here's the other foot"
-                       WRITE (*,*) "You're hung!!."
-                       P(12,3) = "-"
-                       P(12,4) = "/" 
-               END SELECT
+               mistakes = mistakes+1
+               write (*,*) "sorry, that letter isn't in the word."
+               select case (mistakes)
+                   case (1)
+                       write (*,*) "first we draw a head."
+                       p(3,6) = "-"
+                       p(3,7) = "-"
+                       p(3,8) = "-"
+                       p(4,5) = "(" 
+                       p(4,6) = "."
+                       p(4,8) = "."
+                       p(4,9) = ")"
+                       p(5,6) = "-"
+                       p(5,7) = "-" 
+                       p(5,8) = "-"
+                   case (2)
+                       write (*,*) "now we draw a body."
+                       do i = 6,9
+                           p(i,7) = "x" 
+                       end do
+                   case (3)
+                       write (*,*) "next we draw an arm."
+                       do i = 4,7
+                           p(i,i-1) = "\" 
+                       end do
+                   case (4)
+                       write (*,*) "this time it's the other arm."
+                       p(4,11) = "/"
+                       p(5,10) = "/"
+                       p(6,9) = "/"
+                       p(7,8) = "/" 
+                   case (5)
+                       write (*,*) "now, let's draw the right leg."
+                       p(10,6) = "/"
+                       p(11,5) = "/"
+                   case (6)
+                       write (*,*) "this time we draw the left leg."
+                       p(10,8) = "\"
+                       p(11,9) = "\"
+                   case (7)
+                       write (*,*) "now we put up a hand."
+                       p(3,11) = "\"
+                   case (8)
+                       write (*,*) "next the other hand."
+                       p(3,3) = "/"
+                   case (9)
+                       write (*,*) "now we draw one foot."
+                       p(12,10) = "\"
+                       p(12,11) = "-"
+                   case (10)
+                       write (*,*) "here's the other foot"
+                       write (*,*) "you're hung!!."
+                       p(12,3) = "-"
+                       p(12,4) = "/" 
+               end select
 
-               DO I = 1,12
-                   WRITE (*,*) (P(I,J),J=1,12)
-               END DO
-           END DO
-           IF (MISTAKES .EQ. 10) THEN
-               WRITE (*,*) "Sorry, you loose. The word was ", A
-               WRITE (*,*) "You missed that one."
-           ELSE IF (A .EQ. B) THEN
-               WRITE (*,*) "Right! It took you ",T1," guesses"
-           END IF
+               do i = 1,12
+                   write (*,*) (p(i,j),j=1,12)
+               end do
+           end do
+           if (mistakes .eq. 10) then
+               write (*,*) "sorry, you loose. the word was ", a
+               write (*,*) "you missed that one."
+           else if (a .eq. b) then
+               write (*,*) "right! it took you ",t1," guesses"
+           end if
 
-           WRITE (*,*) "Do you want another word? (Y/N) "
-           READ (*,*) ANS
-           IF (ICHAR(ANS) .EQ. ICHAR("Y")) THEN
-               CYCLE
-           ELSE
-               WRITE (*,*) "It's been fun! Bye for now."
-               EXIT
-           END IF
-       END DO
-       IF (COUNTER .EQ. 50) THEN
-           WRITE (*,*) "You did all the words"
-       END IF
-       WRITE (*,*) "Ending..." 
-       END
+           write (*,*) "do you want another word? (y/n) "
+           read (*,*) ans
+           if (ichar(ans) .eq. ichar("y")) then
+               cycle
+           else
+               write (*,*) "it's been fun! bye for now."
+               exit
+           end if
+       end do
+       if (counter .eq. 50) then
+           write (*,*) "you did all the words"
+       end if
+       write (*,*) "ending..." 
+       end
