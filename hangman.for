@@ -8,7 +8,7 @@
        CHARACTER P(12,12)
        CHARACTER D(20), N(26), A*20, GUESS, B*20, ANS 
        INTEGER U(50)
-       INTEGER Q, M, I, J, T1, R, L, C
+       INTEGER Q, MISTAKES, I, J, T1, R, L, C
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
 
@@ -43,7 +43,7 @@
 ! Initialize other values
        D = "-"
        N = " "
-       M=0 
+       MISTAKES = 0 
        IF (C .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
        END IF
@@ -82,7 +82,7 @@
        ELSE 
            GO TO 300
        END IF
-290    M=M+1; GO TO 400       
+290    MISTAKES = MISTAKES+1; GO TO 400       
 300    DO 305 I = 1,L
            IF (ICHAR(D(I)) - ICHAR("-")) 305,320,305
 305    CONTINUE
@@ -99,7 +99,7 @@
 380    WRITE (*,*) "It's been fun! Bye for now."; GO TO 999
 390    WRITE (*,*) "You found the word."; GO TO 370
 400    WRITE (*,*) "Sorry, that letter isn't in the word."
-       SELECT CASE (M)
+       SELECT CASE (MISTAKES)
            CASE (1)
                WRITE (*,*) "First we draw a head.";
                P(3,6) = "-"; P(3,7) = "-"; P(3,8) = "-"; P(4,5) = "("; 
@@ -142,7 +142,7 @@
 580    DO I = 1,12
            WRITE (*,*) (P(I,J),J=1,12)
        END DO
-590    IF (M - 10) 170,600,170
+590    IF (MISTAKES - 10) 170,600,170
 600    WRITE (*,*) "Sorry, you loose. The word was ", A
 610    WRITE (*,*) "You missed that one."; GO TO 370 
 
