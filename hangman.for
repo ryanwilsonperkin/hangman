@@ -9,7 +9,6 @@
        CHARACTER D(20), N(26), A*20, GUESS, B*20, ANS 
        INTEGER U(50)
        INTEGER Q, M, I, J, T1, R, L, C
-       REAL RND 
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
 
@@ -46,8 +45,7 @@
        M=0 
        IF (C .LT. 50) GO TO 100
        WRITE (*,*) "You did all the words"; GO TO 999
-100    RND=RAND()
-       Q=CEILING(RND*50)
+100    Q=CEILING(RAND()*50)
        IF (U(Q) - 1) 120,100,120
 120    U(Q) = 1; C=C+1; T1=0
        
