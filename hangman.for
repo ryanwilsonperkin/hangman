@@ -49,7 +49,7 @@
        DO WHILE (U(Q) .EQ. 0)
            Q=CEILING(RAND()*50)
        END DO
-120    U(Q) = 1; C=C+1; T1=0
+       U(Q) = 1; C=C+1; T1=0
        
        A = DICT(Q)
        L = LEN_TRIM(A) 
