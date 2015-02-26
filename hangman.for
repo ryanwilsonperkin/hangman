@@ -6,7 +6,8 @@
        PROGRAM HANGMAN 
        IMPLICIT NONE
        CHARACTER P(12,12)
-       CHARACTER DASHES(20), N(26), A*20, GUESS, B*20, ANS 
+       CHARACTER GUESSES(26)
+       CHARACTER DASHES(20), A*20, GUESS, B*20, ANS 
        INTEGER USED_WORD(50)
        INTEGER Q, MISTAKES, I, J, T1, R, L, C
 
@@ -42,7 +43,7 @@
 
 ! Initialize other values
        DASHES = "-"
-       N = " "
+       GUESSES = " "
        MISTAKES = 0 
        IF (C .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
@@ -57,21 +58,21 @@
        WRITE (*,*) DASHES(1:L)
 170    WRITE (*,*) "Here are the letters you used: "
        DO I = 1,26
-           IF (N(I) .EQ. ' ') GO TO 200
-           WRITE (*,'(AA$)') N(I),","
+           IF (GUESSES(I) .EQ. ' ') GO TO 200
+           WRITE (*,'(AA$)') GUESSES(I),","
        END DO
 
 200    WRITE (*,*) " "
        WRITE (*,*) "What is your guess? "; R=0
        READ (*,*) GUESS 
        DO 210 I = 1,26
-           IF (N(I) .EQ. " ") GO TO 250 
-           IF (ICHAR(N(I)) - ICHAR(GUESS)) 210,205,210
+           IF (GUESSES(I) .EQ. " ") GO TO 250 
+           IF (ICHAR(GUESSES(I)) - ICHAR(GUESS)) 210,205,210
 205        WRITE (*,*) "You guessed that letter before";
            GO TO 170
 210    CONTINUE
        WRITE (*,*) "Invalid character"; GO TO 170
-250    N(I)=GUESS; T1=T1+1
+250    GUESSES(I)=GUESS; T1=T1+1
        DO I = 1,L
            IF (A(I:I) .EQ. GUESS) THEN
                DASHES(I) = GUESS; R=R+1
