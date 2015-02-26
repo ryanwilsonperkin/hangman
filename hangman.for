@@ -6,8 +6,8 @@
        PROGRAM HANGMAN 
        IMPLICIT NONE
        CHARACTER P(12,12)
-       CHARACTER D(20), N(26), A*20, GUESS, B*20, ANS 
-       INTEGER U(50)
+       CHARACTER DASHES(20), N(26), A*20, GUESS, B*20, ANS 
+       INTEGER USED_WORD(50)
        INTEGER Q, MISTAKES, I, J, T1, R, L, C
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
@@ -28,7 +28,7 @@
 ! Initialize counter
        C=1
 ! Initialize "used" words tracker
-       U = 0
+       USED_WORD = 0
 
 ! Assign ascii gallows 
 10     P = " "
@@ -41,20 +41,20 @@
        P(2,7) = "X"
 
 ! Initialize other values
-       D = "-"
+       DASHES = "-"
        N = " "
        MISTAKES = 0 
        IF (C .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
        END IF
-       DO WHILE (U(Q) .EQ. 1)
+       DO WHILE (USED_WORD(Q) .EQ. 1)
            Q=CEILING(RAND()*50)
        END DO
-       U(Q) = 1; C=C+1; T1=0
+       USED_WORD(Q) = 1; C=C+1; T1=0
        
        A = DICT(Q)
        L = LEN_TRIM(A) 
-       WRITE (*,*) D(1:L)
+       WRITE (*,*) DASHES(1:L)
 170    WRITE (*,*) "Here are the letters you used: "
        DO I = 1,26
            IF (N(I) .EQ. ' ') GO TO 200
@@ -74,7 +74,7 @@
 250    N(I)=GUESS; T1=T1+1
        DO I = 1,L
            IF (A(I:I) .EQ. GUESS) THEN
-               D(I) = GUESS; R=R+1
+               DASHES(I) = GUESS; R=R+1
            END IF
        END DO
 270    IF (R .EQ. 0) THEN
@@ -84,10 +84,10 @@
        END IF
 290    MISTAKES = MISTAKES+1; GO TO 400       
 300    DO 305 I = 1,L
-           IF (ICHAR(D(I)) - ICHAR("-")) 305,320,305
+           IF (ICHAR(DASHES(I)) - ICHAR("-")) 305,320,305
 305    CONTINUE
        GO TO 390
-320    WRITE (*,*) D(1:L)
+320    WRITE (*,*) DASHES(1:L)
 330    WRITE (*,*) "What is your guess for the word? "
        READ (*,*) B
 340    IF (A .EQ. B) GO TO 360
