@@ -35,7 +35,7 @@
 
 ! Assign ascii gallows 
        DO COUNTER=1,50
-10         P = " "
+           P = " "
            DO I = 1,12
                P(I,1) = "X"
            END DO
