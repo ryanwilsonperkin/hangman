@@ -11,6 +11,7 @@
        INTEGER USED(50)
        INTEGER LENGTH
        INTEGER COUNTER
+       INTEGER FLAG
        INTEGER Q, MISTAKES, I, J, T1, R
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
@@ -49,6 +50,7 @@
            GUESSES = " "
            MISTAKES = 0 
            T1=0
+           FLAG = 0
 
 ! Get random remaining word from dictionary
            DO WHILE (USED(Q) .EQ. 1)
@@ -62,26 +64,32 @@
            WRITE (*,*) DASHES(1:LENGTH)
 
            DO WHILE (MISTAKES .LT. 10)
+
+! Write current guesses
                WRITE (*,*) "Here are the letters you used: "
                DO I = 1,26
-                   IF (GUESSES(I) .EQ. ' ') GO TO 200
+                   IF (GUESSES(I) .EQ. ' ') EXIT
                    WRITE (*,'(AA$)') GUESSES(I),","
                END DO
 
-200            WRITE (*,*) " "
+! Prompt for next guess
+               WRITE (*,*) " "
                WRITE (*,*) "What is your guess? "
-               R=0
                READ (*,*) GUESS 
-               DO 210 I = 1,26
-                   IF (GUESSES(I) .EQ. " ") GO TO 250 
-                   IF (ICHAR(GUESSES(I)) - ICHAR(GUESS)) 210,205,210
-205                WRITE (*,*) "You guessed that letter before"
+
+! Check if guess is a repeat
+               DO I = 1,26
+                   IF (ICHAR(GUESSES(I)) .EQ. ICHAR(GUESS)) FLAG = 1
+               END DO
+               IF (FLAG .EQ. 1) THEN
+                   WRITE (*,*) "You guessed that letter before"
                    CYCLE
-210            CONTINUE
-               WRITE (*,*) "Invalid character"
-               CYCLE
-250            GUESSES(I)=GUESS
+               END IF
+
+! Add current guess to list
                T1=T1+1
+               GUESSES(T1)=GUESS
+               R=0
                DO I = 1,LENGTH
                    IF (A(I:I) .EQ. GUESS) THEN
                        DASHES(I) = GUESS
