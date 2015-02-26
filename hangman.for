@@ -8,7 +8,7 @@
        CHARACTER P(12,12)
        CHARACTER D(20), N(26), A*20, GUESS, B*20, ANS 
        INTEGER U(50)
-       INTEGER Q, M, I, J, W, T1, R, L, C
+       INTEGER Q, M, I, J, T1, R, L, C
        REAL RND 
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
@@ -26,6 +26,9 @@
      M           'parasympathomimetic','thigmotropism'/
        WRITE (*,*) "THE GAME OF HANGMAN"
 
+! Initialize counter
+       C=1
+
 ! Assign ascii gallows 
 10     P = " "
        DO I = 1,12
@@ -40,10 +43,8 @@
        D = "-"
        N = " "
        U = 0
-       C=1
-       W=50
        M=0 
-       IF (C .LT. W) GO TO 100
+       IF (C .LT. 50) GO TO 100
        WRITE (*,*) "You did all the words"; GO TO 999
 100    RND=RAND()
        Q=CEILING(RND*50)
