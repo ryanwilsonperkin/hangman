@@ -33,8 +33,8 @@
 ! Initialize "used" words tracker
        USED = 0
 
-! Assign ascii gallows 
        DO COUNTER=1,50
+! Assign ascii gallows 
            P = " "
            DO I = 1,12
                P(I,1) = "X"
@@ -48,15 +48,19 @@
            DASHES = "-"
            GUESSES = " "
            MISTAKES = 0 
+           T1=0
+
+! Get random remaining word from dictionary
            DO WHILE (USED(Q) .EQ. 1)
                Q=CEILING(RAND()*50)
            END DO
            USED(Q) = 1
-           T1=0
-           
            A = DICT(Q)
            LENGTH = LEN_TRIM(A) 
+           
+! Write number of dashes for current word
            WRITE (*,*) DASHES(1:LENGTH)
+
 170        WRITE (*,*) "Here are the letters you used: "
            DO I = 1,26
                IF (GUESSES(I) .EQ. ' ') GO TO 200
