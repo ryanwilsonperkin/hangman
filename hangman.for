@@ -8,7 +8,7 @@
        CHARACTER P(12,12)
        CHARACTER GUESSES(26)
        CHARACTER DASHES(20), A*20, GUESS, B*20, ANS 
-       INTEGER USED_WORD(50)
+       INTEGER USED(50)
        INTEGER Q, MISTAKES, I, J, T1, R, L, C
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
@@ -29,7 +29,7 @@
 ! Initialize counter
        C=1
 ! Initialize "used" words tracker
-       USED_WORD = 0
+       USED = 0
 
 ! Assign ascii gallows 
 10     P = " "
@@ -48,10 +48,10 @@
        IF (C .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
        END IF
-       DO WHILE (USED_WORD(Q) .EQ. 1)
+       DO WHILE (USED(Q) .EQ. 1)
            Q=CEILING(RAND()*50)
        END DO
-       USED_WORD(Q) = 1; C=C+1; T1=0
+       USED(Q) = 1; C=C+1; T1=0
        
        A = DICT(Q)
        L = LEN_TRIM(A) 
