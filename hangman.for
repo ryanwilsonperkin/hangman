@@ -25,27 +25,21 @@
      M           'loudspeaker','phytotoxic','matrimonial',
      M           'parasympathomimetic','thigmotropism'/
        WRITE (*,*) "THE GAME OF HANGMAN"
-10     DO 16 I = 1,12
-           DO 15 J = 1,12
-               P(I,J) = " "
-15         CONTINUE
-16     CONTINUE
-       DO 18 I = 1,20
-           D(I) = "-"
-18     CONTINUE
-       DO 20 I = 1,26
-           N(I) = " "
-20     CONTINUE
-       DO 25 I = 1,50
-           U(I) = 0
-25     CONTINUE
-       DO 30 I = 1,12
+
+! Assign ascii gallows 
+10     P = " "
+       DO I = 1,12
            P(I,1) = "X"
-30     CONTINUE
-       DO 40 J = 1,7
+       END DO
+       DO J = 1,7
            P(1,J) = "X"
-40     CONTINUE
+       END DO
        P(2,7) = "X"
+
+! Initialize other values
+       D = "-"
+       N = " "
+       U = 0
        C=1
        W=50
        M=0 
