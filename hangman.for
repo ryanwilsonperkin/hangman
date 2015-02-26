@@ -43,11 +43,12 @@
        N = " "
        U = 0
        M=0 
-       IF (C .GE. 3) THEN
+       IF (C .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
        END IF
-100    Q=CEILING(RAND()*50)
-       IF (U(Q) - 1) 120,100,120
+       DO WHILE (U(Q) .EQ. 0)
+           Q=CEILING(RAND()*50)
+       END DO
 120    U(Q) = 1; C=C+1; T1=0
        
        A = DICT(Q)
