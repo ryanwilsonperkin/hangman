@@ -9,7 +9,8 @@
        CHARACTER GUESSES(26)
        CHARACTER DASHES(20), A*20, GUESS, B*20, ANS 
        INTEGER USED(50)
-       INTEGER Q, MISTAKES, I, J, T1, R, L, C
+       INTEGER LENGTH
+       INTEGER Q, MISTAKES, I, J, T1, R, C
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
 
@@ -54,8 +55,8 @@
        USED(Q) = 1; C=C+1; T1=0
        
        A = DICT(Q)
-       L = LEN_TRIM(A) 
-       WRITE (*,*) DASHES(1:L)
+       LENGTH = LEN_TRIM(A) 
+       WRITE (*,*) DASHES(1:LENGTH)
 170    WRITE (*,*) "Here are the letters you used: "
        DO I = 1,26
            IF (GUESSES(I) .EQ. ' ') GO TO 200
@@ -73,7 +74,7 @@
 210    CONTINUE
        WRITE (*,*) "Invalid character"; GO TO 170
 250    GUESSES(I)=GUESS; T1=T1+1
-       DO I = 1,L
+       DO I = 1,LENGTH
            IF (A(I:I) .EQ. GUESS) THEN
                DASHES(I) = GUESS; R=R+1
            END IF
@@ -84,11 +85,11 @@
            GO TO 300
        END IF
 290    MISTAKES = MISTAKES+1; GO TO 400       
-300    DO 305 I = 1,L
+300    DO 305 I = 1,LENGTH
            IF (ICHAR(DASHES(I)) - ICHAR("-")) 305,320,305
 305    CONTINUE
        GO TO 390
-320    WRITE (*,*) DASHES(1:L)
+320    WRITE (*,*) DASHES(1:LENGTH)
 330    WRITE (*,*) "What is your guess for the word? "
        READ (*,*) B
 340    IF (A .EQ. B) GO TO 360
