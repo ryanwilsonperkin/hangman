@@ -27,6 +27,8 @@
 
 ! Initialize counter
        C=1
+! Initialize "used" words tracker
+       U = 0
 
 ! Assign ascii gallows 
 10     P = " "
@@ -41,12 +43,11 @@
 ! Initialize other values
        D = "-"
        N = " "
-       U = 0
        M=0 
        IF (C .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
        END IF
-       DO WHILE (U(Q) .EQ. 0)
+       DO WHILE (U(Q) .EQ. 1)
            Q=CEILING(RAND()*50)
        END DO
        U(Q) = 1; C=C+1; T1=0
