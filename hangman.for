@@ -10,7 +10,8 @@
        CHARACTER DASHES(20), A*20, GUESS, B*20, ANS 
        INTEGER USED(50)
        INTEGER LENGTH
-       INTEGER Q, MISTAKES, I, J, T1, R, C
+       INTEGER COUNTER
+       INTEGER Q, MISTAKES, I, J, T1, R
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
 
@@ -28,7 +29,7 @@
        WRITE (*,*) "THE GAME OF HANGMAN"
 
 ! Initialize counter
-       C=1
+       COUNTER = 1
 ! Initialize "used" words tracker
        USED = 0
 
@@ -46,13 +47,13 @@
        DASHES = "-"
        GUESSES = " "
        MISTAKES = 0 
-       IF (C .GE. 50) THEN
+       IF (COUNTER .GE. 50) THEN
            WRITE (*,*) "You did all the words"; GO TO 999
        END IF
        DO WHILE (USED(Q) .EQ. 1)
            Q=CEILING(RAND()*50)
        END DO
-       USED(Q) = 1; C=C+1; T1=0
+       USED(Q) = 1; COUNTER=COUNTER+1; T1=0
        
        A = DICT(Q)
        LENGTH = LEN_TRIM(A) 
