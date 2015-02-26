@@ -88,12 +88,10 @@
                END IF
            END DO
            IF (R .EQ. 0) THEN
-               GO TO 290
+               GO TO 400
            ELSE 
                GO TO 300
            END IF
-290        MISTAKES = MISTAKES+1
-           GO TO 400       
 300        DO I = 1,LENGTH
                IF (ICHAR(DASHES(I)) .EQ. ICHAR("-")) GO TO 320
            END DO
@@ -112,7 +110,8 @@
            EXIT
 390        WRITE (*,*) "You found the word."
            GO TO 370
-400        WRITE (*,*) "Sorry, that letter isn't in the word."
+400        MISTAKES = MISTAKES+1
+           WRITE (*,*) "Sorry, that letter isn't in the word."
            SELECT CASE (MISTAKES)
                CASE (1)
                    WRITE (*,*) "First we draw a head."
