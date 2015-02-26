@@ -97,20 +97,19 @@
                    IF (ICHAR(DASHES(I)) .EQ. ICHAR("-")) GO TO 320
                END DO
                GO TO 390
+
 320            WRITE (*,*) DASHES(1:LENGTH)
                WRITE (*,*) "What is your guess for the word? "
                READ (*,*) B
-               IF (A .EQ. B) GO TO 360
-               WRITE (*,*) "Wrong. Try another letter"
-               CYCLE
-360            WRITE (*,*) "Right! It took you ",T1," guesses"
-370            WRITE (*,*) "Do you want another word? (Y/N) "
-               READ (*,*) ANS
-               IF (ICHAR(ANS) .EQ. ICHAR("Y")) CYCLE
-               WRITE (*,*) "It's been fun! Bye for now."
-               EXIT
+               IF (A .EQ. B) THEN
+                   EXIT
+               ELSE
+                   WRITE (*,*) "Wrong. Try another letter"
+                   CYCLE
+               END IF
+
 390            WRITE (*,*) "You found the word."
-               GO TO 370
+               EXIT
 400            MISTAKES = MISTAKES+1
                WRITE (*,*) "Sorry, that letter isn't in the word."
                SELECT CASE (MISTAKES)
@@ -170,12 +169,22 @@
                DO I = 1,12
                    WRITE (*,*) (P(I,J),J=1,12)
                END DO
-               IF (MISTAKES .EQ. 10) THEN
-                   WRITE (*,*) "Sorry, you loose. The word was ", A
-                   WRITE (*,*) "You missed that one."
-                   GO TO 370 
-               END IF
            END DO
+           IF (MISTAKES .EQ. 10) THEN
+               WRITE (*,*) "Sorry, you loose. The word was ", A
+               WRITE (*,*) "You missed that one."
+           ELSE IF (A .EQ. B) THEN
+               WRITE (*,*) "Right! It took you ",T1," guesses"
+           END IF
+
+           WRITE (*,*) "Do you want another word? (Y/N) "
+           READ (*,*) ANS
+           IF (ICHAR(ANS) .EQ. ICHAR("Y")) THEN
+               CYCLE
+           ELSE
+               WRITE (*,*) "It's been fun! Bye for now."
+               EXIT
+           END IF
        END DO
        IF (COUNTER .EQ. 50) THEN
            WRITE (*,*) "You did all the words"
