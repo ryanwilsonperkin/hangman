@@ -94,9 +94,9 @@
            END IF
 290        MISTAKES = MISTAKES+1
            GO TO 400       
-300        DO 305 I = 1,LENGTH
-               IF (ICHAR(DASHES(I)) - ICHAR("-")) 305,320,305
-305        CONTINUE
+300        DO I = 1,LENGTH
+               IF (ICHAR(DASHES(I)) .EQ. ICHAR("-")) GO TO 320
+           END DO
            GO TO 390
 320        WRITE (*,*) DASHES(1:LENGTH)
            WRITE (*,*) "What is your guess for the word? "
@@ -173,6 +173,8 @@
                WRITE (*,*) "Sorry, you loose. The word was ", A
                WRITE (*,*) "You missed that one."
                GO TO 370 
+           ELSE
+               GO TO 170
            END IF
        END DO
        IF (COUNTER .EQ. 50) THEN
