@@ -4,10 +4,11 @@
 !      CONVERTED TO FORTRAN 77 BY M.WIRTH, APRIL 2012
 !       
        PROGRAM HANGMAN 
+       IMPLICIT NONE
        CHARACTER P(12,12)
        CHARACTER D(20), N(26), A*20, GUESS, B*20, ANS 
        INTEGER U(50)
-       INTEGER Q, M, I, J, W, T1, R, L 
+       INTEGER Q, M, I, J, W, T1, R, L, C
        REAL RND 
 
        CHARACTER (LEN=20), DIMENSION(50) :: DICT
