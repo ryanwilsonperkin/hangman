@@ -54,10 +54,10 @@
        L = LEN_TRIM(A) 
        WRITE (*,*) D(1:L)
 170    WRITE (*,*) "Here are the letters you used: "
-       DO 180 I = 1,26
+       DO I = 1,26
            IF (N(I) .EQ. ' ') GO TO 200
            WRITE (*,'(AA$)') N(I),","
-180    CONTINUE
+       END DO
 
 200    WRITE (*,*) " "
        WRITE (*,*) "What is your guess? "; R=0
@@ -70,11 +70,11 @@
 210    CONTINUE
        WRITE (*,*) "Invalid character"; GO TO 170
 250    N(I)=GUESS; T1=T1+1
-       DO 260 I = 1,L
+       DO I = 1,L
            IF (A(I:I) .EQ. GUESS) THEN
                D(I) = GUESS; R=R+1
            END IF
-260    CONTINUE
+       END DO
 270    IF (R .EQ. 0) THEN
            GO TO 290
        ELSE 
@@ -137,9 +137,9 @@
                P(12,3) = "-"; P(12,4) = "/" 
        END SELECT
 
-580    DO 585 I = 1,12
+580    DO I = 1,12
            WRITE (*,*) (P(I,J),J=1,12)
-585    CONTINUE 
+       END DO
 590    IF (M - 10) 170,600,170
 600    WRITE (*,*) "Sorry, you loose. The word was ", A
 610    WRITE (*,*) "You missed that one."; GO TO 370 
