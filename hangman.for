@@ -87,7 +87,7 @@
                    R=R+1
                END IF
            END DO
-270        IF (R .EQ. 0) THEN
+           IF (R .EQ. 0) THEN
                GO TO 290
            ELSE 
                GO TO 300
@@ -99,16 +99,16 @@
 305        CONTINUE
            GO TO 390
 320        WRITE (*,*) DASHES(1:LENGTH)
-330        WRITE (*,*) "What is your guess for the word? "
+           WRITE (*,*) "What is your guess for the word? "
            READ (*,*) B
-340        IF (A .EQ. B) GO TO 360
+           IF (A .EQ. B) GO TO 360
            WRITE (*,*) "Wrong. Try another letter"
            GO TO 170
 360        WRITE (*,*) "Right! It took you ",T1," guesses"
 370        WRITE (*,*) "Do you want another word? (Y/N) "
            READ (*,*) ANS
            IF (ICHAR(ANS) .EQ. ICHAR("Y")) CYCLE
-380        WRITE (*,*) "It's been fun! Bye for now."
+           WRITE (*,*) "It's been fun! Bye for now."
            EXIT
 390        WRITE (*,*) "You found the word."
            GO TO 370
@@ -166,13 +166,14 @@
                    P(12,4) = "/" 
            END SELECT
 
-580        DO I = 1,12
+           DO I = 1,12
                WRITE (*,*) (P(I,J),J=1,12)
            END DO
-590        IF (MISTAKES - 10) 170,600,170
-600        WRITE (*,*) "Sorry, you loose. The word was ", A
-610        WRITE (*,*) "You missed that one."
-           GO TO 370 
+           IF (MISTAKES .EQ. 10) THEN
+               WRITE (*,*) "Sorry, you loose. The word was ", A
+               WRITE (*,*) "You missed that one."
+               GO TO 370 
+           END IF
        END DO
        IF (COUNTER .EQ. 50) THEN
            WRITE (*,*) "You did all the words"
