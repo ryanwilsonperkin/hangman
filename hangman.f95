@@ -35,7 +35,7 @@ counter = 1
 used = 0
 
 do counter=1,50
-! assign ascii gallows 
+    ! assign ascii gallows 
     image = " "
     do i = 1,12
         image(i,1) = "x"
@@ -45,14 +45,14 @@ do counter=1,50
     end do
     image(2,7) = "x"
  
- ! initialize other values
+    ! initialize other values
     dashes = "-"
     guesses = " "
     mistakes = 0 
     t1=0
     flag = 0
  
- ! get random remaining word from dictionary
+    ! get random remaining word from dictionary
     do
         q=ceiling(rand()*50)
         if (used(q) .eq. 0) exit
@@ -61,24 +61,24 @@ do counter=1,50
     a = dict(q)
     length = len_trim(a) 
     
- ! write number of dashes for current word
+    ! write number of dashes for current word
     write (*,*) dashes(1:length)
  
     do while (mistakes .lt. 10)
  
- ! write current guesses
+        ! write current guesses
         write (*,*) "here are the letters you used: "
         do i = 1,26
             if (guesses(i) .eq. ' ') exit
             write (*,"(2a)",advance='no') guesses(i), ","
         end do
  
- ! prompt for next guess
+        ! prompt for next guess
         write (*,*) " "
         write (*,*) "what is your guess? "
         read (*,*) guess 
  
- ! check if guess is a repeat
+        ! check if guess is a repeat
         do i = 1,26
             if (ichar(guesses(i)) .eq. ichar(guess)) flag = 1
         end do
@@ -87,7 +87,7 @@ do counter=1,50
             cycle
         end if
  
- ! add current guess to list
+        ! add current guess to list
         t1=t1+1
         guesses(t1)=guess
         r=0
