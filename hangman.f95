@@ -83,11 +83,7 @@ do counter=1,50
         read (*,*) letter_guess 
  
         ! check if guess is a repeat
-        flag = 0
-        do i = 1,26
-            if (ichar(guesses(i)) .eq. ichar(letter_guess)) flag = 1
-        end do
-        if (flag .eq. 1) then
+        if (any(guesses .eq. letter_guess)) then
             write (*,*) "you guessed that letter before"
             cycle
         end if
