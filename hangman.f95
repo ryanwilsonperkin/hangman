@@ -53,8 +53,9 @@
            flag = 0
 
 ! get random remaining word from dictionary
-           do while (used(q) .eq. 1)
+           do
                q=ceiling(rand()*50)
+               if (used(q) .eq. 0) exit
            end do
            used(q) = 1
            a = dict(q)
