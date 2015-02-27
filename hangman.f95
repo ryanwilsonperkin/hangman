@@ -13,7 +13,6 @@ character :: dashes(20), letter_guess, ans
 integer :: used(50)
 integer :: length
 integer :: counter
-integer :: flag
 integer :: n_guesses
 integer :: dict_index
 integer :: n_replaced
@@ -100,11 +99,7 @@ do counter=1,50
         end do
  
         if (n_replaced .ne. 0) then
-            flag = 0
-            do i = 1,length
-                if (ichar(dashes(i)) .eq. ichar("-")) flag = 1
-            end do
-            if (flag .eq. 1) then
+            if (any(dashes(1:length) .eq. '-')) then
                 write (*,*) dashes(1:length)
                 write (*,*) "what is your guess for the word? "
                 read (*,*) word_guess 
