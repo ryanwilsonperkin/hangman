@@ -8,7 +8,8 @@ implicit none
 character :: image(12,12)
 character :: guesses(26)
 character :: word*20
-character :: dashes(20), guess, b*20, ans 
+character :: word_guess*20
+character :: dashes(20), letter_guess, ans 
 integer :: used(50)
 integer :: length
 integer :: counter
@@ -78,11 +79,11 @@ do counter=1,50
         ! prompt for next guess
         write (*,*) " "
         write (*,*) "what is your guess? "
-        read (*,*) guess 
+        read (*,*) letter_guess 
  
         ! check if guess is a repeat
         do i = 1,26
-            if (ichar(guesses(i)) .eq. ichar(guess)) flag = 1
+            if (ichar(guesses(i)) .eq. ichar(letter_guess)) flag = 1
         end do
         if (flag .eq. 1) then
             write (*,*) "you guessed that letter before"
@@ -91,11 +92,11 @@ do counter=1,50
  
         ! add current guess to list
         n_guesses = n_guesses + 1
-        guesses(n_guesses) = guess
+        guesses(n_guesses) = letter_guess
         r=0
         do i = 1,length
-            if (word(i:i) .eq. guess) then
-                dashes(i) = guess
+            if (word(i:i) .eq. letter_guess) then
+                dashes(i) = letter_guess
                 r=r+1
             end if
         end do
@@ -108,8 +109,8 @@ do counter=1,50
             if (flag .eq. 1) then
                 write (*,*) dashes(1:length)
                 write (*,*) "what is your guess for the word? "
-                read (*,*) b
-                if (word .eq. b) then
+                read (*,*) word_guess 
+                if (word .eq. word_guess) then
                     exit
                 else
                     write (*,*) "wrong. try another letter"
@@ -184,7 +185,7 @@ do counter=1,50
     if (mistakes .eq. 10) then
         write (*,*) "sorry, you loose. the word was ", word
         write (*,*) "you missed that one."
-    else if (word .eq. b) then
+    else if (word .eq. word_guess) then
         write (*,*) "right! it took you ",n_guesses," guesses"
     end if
  
