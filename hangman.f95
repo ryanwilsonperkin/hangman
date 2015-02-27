@@ -193,8 +193,10 @@ do counter=1,50
         exit
     end if
 end do
+
 if (counter .eq. 50) then
    write (*,*) "you did all the words"
 end if
+
 write (*,*) "ending..." 
 end
