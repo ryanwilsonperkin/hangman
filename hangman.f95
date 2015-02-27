@@ -12,7 +12,8 @@ integer :: used(50)
 integer :: length
 integer :: counter
 integer :: flag
-integer :: q, mistakes, i, j, t1, r
+integer :: n_guesses
+integer :: q, mistakes, i, j, r
 
 character (len=20), dimension(50) :: dict
 
@@ -49,7 +50,7 @@ do counter=1,50
     dashes = "-"
     guesses = " "
     mistakes = 0 
-    t1=0
+    n_guesses = 0
     flag = 0
  
     ! get random remaining word from dictionary
@@ -88,8 +89,8 @@ do counter=1,50
         end if
  
         ! add current guess to list
-        t1=t1+1
-        guesses(t1)=guess
+        n_guesses = n_guesses + 1
+        guesses(n_guesses) = guess
         r=0
         do i = 1,length
             if (a(i:i) .eq. guess) then
@@ -183,7 +184,7 @@ do counter=1,50
         write (*,*) "sorry, you loose. the word was ", a
         write (*,*) "you missed that one."
     else if (a .eq. b) then
-        write (*,*) "right! it took you ",t1," guesses"
+        write (*,*) "right! it took you ",n_guesses," guesses"
     end if
  
     write (*,*) "do you want another word? (Y/N) "
