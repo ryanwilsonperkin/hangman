@@ -16,7 +16,8 @@ integer :: counter
 integer :: flag
 integer :: n_guesses
 integer :: dict_index
-integer :: mistakes, i, j, r
+integer :: n_replaced
+integer :: mistakes, i, j
 
 character (len=20), dimension(50) :: dict
 
@@ -54,7 +55,6 @@ do counter=1,50
     guesses = " "
     mistakes = 0 
     n_guesses = 0
-    flag = 0
  
     ! get random remaining word from dictionary
     do
@@ -83,6 +83,7 @@ do counter=1,50
         read (*,*) letter_guess 
  
         ! check if guess is a repeat
+        flag = 0
         do i = 1,26
             if (ichar(guesses(i)) .eq. ichar(letter_guess)) flag = 1
         end do
@@ -94,15 +95,15 @@ do counter=1,50
         ! add current guess to list
         n_guesses = n_guesses + 1
         guesses(n_guesses) = letter_guess
-        r=0
+        n_replaced = 0
         do i = 1,length
             if (word(i:i) .eq. letter_guess) then
                 dashes(i) = letter_guess
-                r=r+1
+                n_replaced = n_replaced + 1
             end if
         end do
  
-        if (r .ne. 0) then
+        if (n_replaced .ne. 0) then
             flag = 0
             do i = 1,length
                 if (ichar(dashes(i)) .eq. ichar("-")) flag = 1
