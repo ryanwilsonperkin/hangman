@@ -16,17 +16,17 @@
 
        character (len=20), dimension(50) :: dict
 
-       data dict/'gum','sin','for','cry','lug','bye','fly','ugly', 
-     m           'each','from','work','talk','with','self',
-     m           'pizza','thing','feign','fiend','elbow','fault',
-     m           'dirty','budget','spirit','quaint','maiden',
-     m           'escort','pickax','example','tension','quinine',
-     m           'kidney','replica','sleeper','triangle',
-     m           'kangaroo','mahogany','sergeant','sequence',
-     m           'moustache','dangerous','scientist','different',
-     m           'quiescent','magistrate','erroneously',
-     m           'loudspeaker','phytotoxic','matrimonial',
-     m           'parasympathomimetic','thigmotropism'/
+       data dict/'gum','sin','for','cry','lug','bye','fly','ugly', &
+           'each','from','work','talk','with','self', &
+           'pizza','thing','feign','fiend','elbow','fault', &
+           'dirty','budget','spirit','quaint','maiden', &
+           'escort','pickax','example','tension','quinine', &
+           'kidney','replica','sleeper','triangle', &
+           'kangaroo','mahogany','sergeant','sequence', &
+           'moustache','dangerous','scientist','different', &
+           'quiescent','magistrate','erroneously', &
+           'loudspeaker','phytotoxic','matrimonial', &
+           'parasympathomimetic','thigmotropism'/
        write (*,*) "the game of hangman"
 
 ! initialize counter
