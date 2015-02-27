@@ -69,7 +69,7 @@
                write (*,*) "here are the letters you used: "
                do i = 1,26
                    if (guesses(i) .eq. ' ') exit
-                   write (*,'(aa$)') guesses(i),","
+                   write (*,"(2a)",advance='no') guesses(i), ","
                end do
 
 ! prompt for next guess
