@@ -7,7 +7,8 @@ program hangman
 implicit none
 character :: image(12,12)
 character :: guesses(26)
-character :: dashes(20), a*20, guess, b*20, ans 
+character :: word*20
+character :: dashes(20), guess, b*20, ans 
 integer :: used(50)
 integer :: length
 integer :: counter
@@ -59,8 +60,8 @@ do counter=1,50
         if (used(q) .eq. 0) exit
     end do
     used(q) = 1
-    a = dict(q)
-    length = len_trim(a) 
+    word = dict(q)
+    length = len_trim(word) 
     
     ! write number of dashes for current word
     write (*,*) dashes(1:length)
@@ -93,7 +94,7 @@ do counter=1,50
         guesses(n_guesses) = guess
         r=0
         do i = 1,length
-            if (a(i:i) .eq. guess) then
+            if (word(i:i) .eq. guess) then
                 dashes(i) = guess
                 r=r+1
             end if
@@ -108,7 +109,7 @@ do counter=1,50
                 write (*,*) dashes(1:length)
                 write (*,*) "what is your guess for the word? "
                 read (*,*) b
-                if (a .eq. b) then
+                if (word .eq. b) then
                     exit
                 else
                     write (*,*) "wrong. try another letter"
@@ -181,9 +182,9 @@ do counter=1,50
         end do
     end do
     if (mistakes .eq. 10) then
-        write (*,*) "sorry, you loose. the word was ", a
+        write (*,*) "sorry, you loose. the word was ", word
         write (*,*) "you missed that one."
-    else if (a .eq. b) then
+    else if (word .eq. b) then
         write (*,*) "right! it took you ",n_guesses," guesses"
     end if
  
