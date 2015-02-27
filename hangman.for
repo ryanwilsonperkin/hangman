@@ -5,14 +5,14 @@
 !       
        program hangman 
        implicit none
-       character p(12,12)
-       character guesses(26)
-       character dashes(20), a*20, guess, b*20, ans 
-       integer used(50)
-       integer length
-       integer counter
-       integer flag
-       integer q, mistakes, i, j, t1, r
+       character :: p(12,12)
+       character :: guesses(26)
+       character :: dashes(20), a*20, guess, b*20, ans 
+       integer :: used(50)
+       integer :: length
+       integer :: counter
+       integer :: flag
+       integer :: q, mistakes, i, j, t1, r
 
        character (len=20), dimension(50) :: dict
 
@@ -185,9 +185,9 @@
                write (*,*) "right! it took you ",t1," guesses"
            end if
 
-           write (*,*) "do you want another word? (y/n) "
+           write (*,*) "do you want another word? (Y/N) "
            read (*,*) ans
-           if (ichar(ans) .eq. ichar("y")) then
+           if (ichar(ans) .eq. ichar("Y")) then
                cycle
            else
                write (*,*) "it's been fun! bye for now."
