@@ -15,7 +15,8 @@ integer :: length
 integer :: counter
 integer :: flag
 integer :: n_guesses
-integer :: q, mistakes, i, j, r
+integer :: dict_index
+integer :: mistakes, i, j, r
 
 character (len=20), dimension(50) :: dict
 
@@ -57,11 +58,11 @@ do counter=1,50
  
     ! get random remaining word from dictionary
     do
-        q=ceiling(rand()*50)
-        if (used(q) .eq. 0) exit
+        dict_index = ceiling(rand()*50)
+        if (used(dict_index) .eq. 0) exit
     end do
-    used(q) = 1
-    word = dict(q)
+    used(dict_index) = 1
+    word = dict(dict_index)
     length = len_trim(word) 
     
     ! write number of dashes for current word
