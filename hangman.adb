@@ -12,6 +12,7 @@ procedure Hangman is
     guesses : string(1..26);
     letter_guess : character;
     answer : character;
+    counter : integer;
 
     word : string(1..20);
     word_length : integer;
@@ -52,7 +53,8 @@ procedure Hangman is
         "parasympathomimetic ", "thigmotropism       ");
 begin
     put_line("The Game of Hangman");
-    for counter in 1..50 loop
+    counter := 1;
+    while counter <= 50 loop
 
         -- Initialize image
         image(1) := (1..7 => 'X') & (1..5 => ' ');
@@ -206,5 +208,12 @@ begin
             put_line("It's been fun! Bye for now.");
             exit;
         end if;
+        counter := counter + 1;
     end loop;
+
+    if counter = 51 then
+        put_line("You did all the words.");
+    end if;
+
+    put_line("Ending...");
 end Hangman;
