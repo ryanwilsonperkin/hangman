@@ -1,4 +1,5 @@
 with ada.Text_IO; use Ada.Text_IO;
+with ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with ada.Numerics.Discrete_Random;
 with ada.Strings.Maps; use ada.Strings.Maps;
 procedure Hangman is
@@ -173,8 +174,37 @@ begin
                     for i in 1..12 loop
                         put_line(image(i));
                     end loop;
+                elsif Is_In('-', To_Set(hidden(1..hidden_length))) then
+
+                    -- Check users guess for the solution
+                    put_line(hidden(1..hidden_length));
+                    put_line("What is your guess for the word?");
+                    get_line(word_guess, word_guess_length);
+                    if word_length = word_guess_length and
+                            word(1..word_length) = word_guess(1..word_guess_length) then
+                        put("Right! It took you ");
+                        put(n_guesses);
+                        put_line(" guesses.");
+                        exit;
+                    else
+                        put_line("Wrong. Try another letter.");
+                    end if;
+                else
+                    put_line("You found the word.");
                 end if;
             end if;
         end loop;
+
+        if n_mistakes = 10 then
+            put_line("Sorry, you loose. The word was " & word(1..word_length));
+            put_line("You missed that one.");
+        end if;
+
+        put_line("Do you want another word? (Y/N)");
+        get(answer);
+        if answer /= 'Y' then
+            put_line("It's been fun! Bye for now.");
+            exit;
+        end if;
     end loop;
 end Hangman;
