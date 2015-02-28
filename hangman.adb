@@ -1,5 +1,6 @@
 with ada.Text_IO; use Ada.Text_IO;
 with ada.Numerics.Discrete_Random;
+with ada.Strings.Maps; use ada.Strings.Maps;
 procedure Hangman is
     type Word_Range is range 1..50;
     package Rand_Index is new ada.Numerics.Discrete_Random(Word_Range);
@@ -22,6 +23,7 @@ procedure Hangman is
 
     n_guesses : integer;
     n_mistakes : integer;
+    n_replaced : integer;
 
     used : array(Word_Range) of Boolean := (Word_Range => false);
     dict_index : Word_Range;
@@ -74,5 +76,35 @@ begin
         word := dictionary(dict_index);
         word_length := dictionary_lengths(dict_index);
         hidden_length := word_length;
+
+        while n_mistakes <= 10 loop
+            -- Report letters that have been guessed
+            put("Here are the letters you used: ");
+            for i in 1..n_guesses loop
+                put(guesses(i));
+                put(',');
+            end loop;
+            put_line(" ");
+
+            -- Get next letter guess
+            put("What is your guess? ");
+            get(letter_guess);
+
+            if Is_In(letter_guess, To_Set(guesses)) then
+                put_line("You guessed that letter before");
+            else
+                n_guesses := n_guesses + 1;
+                guesses(n_guesses) := letter_guess;
+
+                -- Replace dashes in hidden with matching letter
+                n_replaced := 0;
+                for i in 1..word_length loop
+                    if word(i) = letter_guess then
+                        hidden(i) := letter_guess;
+                        n_replaced := n_replaced + 1;
+                    end if;
+                end loop;
+            end if;
+        end loop;
     end loop;
 end Hangman;
