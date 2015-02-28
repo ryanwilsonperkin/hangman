@@ -95,6 +95,7 @@ begin
             -- Get next letter guess
             put("What is your guess? ");
             get(letter_guess);
+            skip_line;
 
             if Is_In(letter_guess, To_Set(guesses)) then
                 put_line("You guessed that letter before");
