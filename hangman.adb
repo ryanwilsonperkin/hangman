@@ -104,6 +104,76 @@ begin
                         n_replaced := n_replaced + 1;
                     end if;
                 end loop;
+
+                -- Print updated image if letter_guess wasn't a match
+                if n_replaced = 0 then
+                    n_mistakes := n_mistakes + 1;
+                    put_line("Sorry, that letter isn't in the word.");
+
+                    -- Update the image
+                    case n_mistakes is
+                        when 1 =>
+                            put_line("First we draw a head.");
+                            image(3)(6) := '-';
+                            image(3)(7) := '-';
+                            image(3)(8) := '-';
+                            image(4)(5) := '(';
+                            image(4)(6) := '.';
+                            image(4)(8) := '.';
+                            image(4)(9) := ')';
+                            image(5)(6) := '-';
+                            image(5)(7) := '-';
+                            image(5)(8) := '-';
+                        when 2 =>
+                            put_line("Now we draw a body.");
+                            image(6)(7) := 'X'; 
+                            image(7)(7) := 'X'; 
+                            image(8)(7) := 'X'; 
+                            image(9)(7) := 'X'; 
+                        when 3 =>
+                            put_line("Next we draw an arm.");
+                            image(4)(3) := 'X'; 
+                            image(5)(4) := 'X'; 
+                            image(6)(5) := 'X'; 
+                            image(7)(6) := 'X'; 
+                        when 4 =>
+                            put_line("This time it's the other arm.");
+                            image(4)(11) := '/';
+                            image(5)(10) := '/';
+                            image(6)(9) := '/';
+                            image(7)(8) := '/';
+                        when 5 =>
+                            put_line("Now, Let's draw the right leg.");
+                            image(10)(6) := '/';
+                            image(11)(5) := '/';
+                        when 6 =>
+                            put_line("This time we draw the left leg.");
+                            image(10)(8) := '\';
+                            image(11)(9) := '\';
+                        when 7 =>
+                            put_line("Now we put up a hand.");
+                            image(3)(11) := '\';
+                        when 8 =>
+                            put_line("Next the other hand.");
+                            image(3)(3) := '/';
+                        when 9 =>
+                            put_line("Now we draw one foot");
+                            image(12)(10) := '\';
+                            image(12)(11) := '-';
+                        when 10 =>
+                            put_line("Here's the other foot.");
+                            put_line("You're hung!!");
+                            image(12)(4) := '-';
+                            image(12)(3) := '\';
+                        when others =>
+                            null;
+                    end case;
+
+                    -- Draw the image
+                    for i in 1..12 loop
+                        put_line(image(i));
+                    end loop;
+                end if;
             end if;
         end loop;
     end loop;
