@@ -80,6 +80,9 @@ begin
         word_length := dictionary_lengths(dict_index);
         hidden_length := word_length;
 
+        -- Print number of dashes for hidden word
+        put_line(hidden(1..hidden_length));
+
         while n_mistakes <= 10 loop
             -- Report letters that have been guessed
             put("Here are the letters you used: ");
