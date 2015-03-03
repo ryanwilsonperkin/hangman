@@ -1,3 +1,7 @@
+-- hangman.adb
+-- A simple interactive hangman game
+-- Adapted from code by Michael Wirth for CIS3190W15
+-- @author Ryan Wilson-Perkin (rwilsonp)
 with ada.Text_IO; use Ada.Text_IO;
 with ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with ada.Numerics.Discrete_Random;
@@ -52,7 +56,10 @@ procedure Hangman is
         "loudspeaker         ", "phytotoxic          ", "matrimonial         ",
         "parasympathomimetic ", "thigmotropism       ");
 begin
+
+    -- Output intro message, before entering program loop
     put_line("The Game of Hangman");
+
     counter := 1;
     while counter <= 50 loop
 
@@ -84,6 +91,7 @@ begin
         put_line(hidden(1..hidden_length));
 
         while n_mistakes <= 10 loop
+
             -- Report letters that have been guessed
             put("Here are the letters you used: ");
             for i in 1..n_guesses loop
@@ -97,6 +105,7 @@ begin
             get(letter_guess);
             skip_line;
 
+            -- Check if the letter has been guessed already
             if Is_In(letter_guess, To_Set(guesses)) then
                 put_line("You guessed that letter before");
             else
@@ -201,13 +210,17 @@ begin
             end if;
         end loop;
 
+        -- Output condolences if user failed to guess the word in 10 turns
         if n_mistakes = 10 then
             put_line("Sorry, you loose. The word was " & word(1..word_length));
             put_line("You missed that one.");
         end if;
 
+        -- Prompt user for another round
         put_line("Do you want another word? (Y/N)");
         get(answer);
+
+        -- Exit program loop if user says anything but 'Y'
         if answer /= 'Y' then
             put_line("It's been fun! Bye for now.");
             exit;
@@ -215,9 +228,11 @@ begin
         counter := counter + 1;
     end loop;
 
+    -- Output congratulations message if user completed every word
     if counter = 51 then
         put_line("You did all the words.");
     end if;
 
+    -- Output final message
     put_line("Ending...");
 end Hangman;
