@@ -93,7 +93,7 @@ begin
         while n_mistakes <= 10 loop
 
             -- Report letters that have been guessed
-            put("Here are the letters you used: ");
+            put("The letters you have used so far are: ");
             for i in 1..n_guesses loop
                 put(guesses(i));
                 put(',');
@@ -101,13 +101,13 @@ begin
             put_line(" ");
 
             -- Get next letter guess
-            put("What is your guess? ");
+            put("Please guess a letter: ");
             get(letter_guess);
             skip_line;
 
             -- Check if the letter has been guessed already
             if Is_In(letter_guess, To_Set(guesses)) then
-                put_line("You guessed that letter before");
+                put_line("You have guessed that letter before.");
             else
                 n_guesses := n_guesses + 1;
                 guesses(n_guesses) := letter_guess;
@@ -148,10 +148,10 @@ begin
                             image(9)(7) := 'X'; 
                         when 3 =>
                             put_line("Next we draw an arm.");
-                            image(4)(3) := 'X'; 
-                            image(5)(4) := 'X'; 
-                            image(6)(5) := 'X'; 
-                            image(7)(6) := 'X'; 
+                            image(4)(3) := '\'; 
+                            image(5)(4) := '\'; 
+                            image(6)(5) := '\'; 
+                            image(7)(6) := '\'; 
                         when 4 =>
                             put_line("This time it's the other arm.");
                             image(4)(11) := '/';
@@ -193,36 +193,34 @@ begin
 
                     -- Check users guess for the solution
                     put_line(hidden(1..hidden_length));
-                    put_line("What is your guess for the word?");
+                    put_line("Please guess the word: ");
                     get_line(word_guess, word_guess_length);
                     if word_length = word_guess_length and
                             word(1..word_length) = word_guess(1..word_guess_length) then
-                        put("Right! It took you ");
+                        put("That's correct! It took you ");
                         put(n_guesses);
                         put_line(" guesses.");
                         exit;
                     else
-                        put_line("Wrong. Try another letter.");
+                        put_line("That's incorrect.");
                     end if;
                 else
-                    put_line("You found the word.");
+                    put_line("You found all the letters in the word!");
                 end if;
             end if;
         end loop;
 
         -- Output condolences if user failed to guess the word in 10 turns
         if n_mistakes = 10 then
-            put_line("Sorry, you loose. The word was " & word(1..word_length));
-            put_line("You missed that one.");
+            put_line("Sorry, you lose. The word was " & word(1..word_length));
         end if;
 
         -- Prompt user for another round
-        put_line("Do you want another word? (Y/N)");
+        put_line("Would you like another word? (Y/N)");
         get(answer);
 
         -- Exit program loop if user says anything but 'Y'
         if answer /= 'Y' then
-            put_line("It's been fun! Bye for now.");
             exit;
         end if;
         counter := counter + 1;
@@ -234,5 +232,5 @@ begin
     end if;
 
     -- Output final message
-    put_line("Ending...");
+    put_line("Thanks for playing!");
 end Hangman;
